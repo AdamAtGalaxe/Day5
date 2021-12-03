@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var password: EditText
     lateinit var web: Button
     lateinit var dial: Button
+    lateinit var map: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         password = findViewById(R.id.pass)
         web = findViewById(R.id.web)
         dial = findViewById(R.id.dialer)
+        map = findViewById(R.id.map)
+
         web.setOnClickListener(View.OnClickListener {
 
             intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"))
@@ -34,6 +37,17 @@ class MainActivity : AppCompatActivity() {
             intent = Intent(Intent.ACTION_DIAL, Uri.parse( "tel:8455878182"))
             startActivity(intent)
         })
+        map.setOnClickListener(View.OnClickListener {
+
+            var loc = Uri.parse("geo:27.2046,77.4977 ")
+            var mapIntent = Intent(Intent.ACTION_VIEW, loc)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            mapIntent.resolveActivity(packageManager)?.let {
+                startActivity(intent)
+            }
+        })
+
+
     }
     fun login(v: View){
         intent = Intent(this, new_page::class.java )
